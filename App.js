@@ -7,14 +7,14 @@ import NumericInput from 'react-native-numeric-input';
 
 export default function App() {
 
-  const [isOn, setIsOn] = useState(false);
   const [weight, setWeight] = useState(0);
   const [bottles, setBottles] = useState(0);
   const [hours, setHours] = useState(0);
   const [sex, setSex] = useState('male');
   const [result, setResult] = useState(0);
-
-  const toggleSwitch = () => setIsOn(isOn => !isOn);
+  const [isOn, setIsOn] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
+  const Style = darkMode ? DarkMode : LightMode;
 
   function calculate() {
 
@@ -33,28 +33,28 @@ export default function App() {
   }
 
   return (
-    <View style={LightMode.containter}>
+    <View style={Style.containter}>
       <ScrollView>
-        <View style={LightMode.switchRow}>
+        <View style={Style.switchRow}>
           <Switch
             style={{ transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }] }}            
             value={isOn}
-            onValueChange={toggleSwitch}
+            onValueChange={() => {setIsOn(prev => !prev); setDarkMode(prev => !prev)}}
             thumbColor='#18e780'
             trackColor={{ false:'#e25412', true:'#ffffff'}}
     
           />
         </View>
-        <Text style={LightMode.header}>Alcometer</Text>
-        <Text style={LightMode.text}>Weight</Text>
+        <Text style={Style.header}>Alcometer</Text>
+        <Text style={Style.text}>Weight</Text>
           <TextInput
-            style={LightMode.input} 
+            style={Style.input} 
             onChangeText={setWeight} 
             value={weight}
             keyboardType="numeric"
           />
-        <Text style={LightMode.text}>Bottles</Text>
-            <View style={LightMode.numeric}>
+        <Text style={Style.text}>Bottles</Text>
+            <View style={Style.numeric}>
                 <NumericInput
                   onChange={b => setBottles(b)}
                   value={bottles}
@@ -62,15 +62,15 @@ export default function App() {
                   totalWidth={175}
                   rounded
                   minValue={0}
-                  borderColor='#ffffff'
+                  borderColor='#18e780'
                   rightButtonBackgroundColor='#18e780'
                   leftButtonBackgroundColor='#18e780'
                   textColor='#e25412'
                   iconStyle={{color:'#ffffff'}}
                 />
             </View>
-        <Text style={LightMode.text}>Hours</Text>
-            <View style={LightMode.numeric}>
+        <Text style={Style.text}>Hours</Text>
+            <View style={Style.numeric}>
                 <NumericInput
                   onChange={h => setHours(h)}
                   value={hours}
@@ -78,7 +78,7 @@ export default function App() {
                   totalWidth={175}
                   rounded
                   minValue={0}
-                  borderColor='#ffffff'
+                  borderColor='#18e780'
                   rightButtonBackgroundColor='#18e780'
                   leftButtonBackgroundColor='#18e780'
                   textColor='#e25412'
@@ -86,18 +86,18 @@ export default function App() {
                 />
             </View>
         <RadioButton.Group onValueChange={newValue => setSex(newValue)} value={sex}>
-          <View style={LightMode.radio}>
+          <View style={Style.radio}>
             <RadioButton value='male' color='#18e780'/>
-            <Text style={LightMode.text}>Male</Text>
+            <Text style={Style.text}>Male</Text>
           </View>
-          <View style={LightMode.radio}>
+          <View style={Style.radio}>
             <RadioButton value='female' color='#18e780' />
-            <Text style={LightMode.text}>Female</Text>
+            <Text style={Style.text}>Female</Text>
           </View>
         </RadioButton.Group>
-        <Text style={LightMode.result}>{result.toFixed(2)}</Text>
-        <TouchableOpacity style={LightMode.button}>
-          <Text style={LightMode.buttonText} onPress={calculate}>Calculate</Text>
+        <Text style={Style.result}>{result.toFixed(2)}</Text>
+        <TouchableOpacity style={Style.button}>
+          <Text style={Style.buttonText} onPress={calculate}>Calculate</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
