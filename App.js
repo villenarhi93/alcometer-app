@@ -18,19 +18,32 @@ export default function App() {
 
   function calculate() {
 
-    let litres = Number(bottles) * 0.33
-    let grams = litres * 8 * 4.5
-    let burning = Number(weight) / 10
-    let gramsLeft = grams - burning * Number(hours)
+      if (weight === 0 || weight === '') {
+        alert('You have not set weight. Add your weight to continue');
+      } 
 
-    if ( sex == 'male') {
-      let result = gramsLeft / (Number(weight) * 0.7)
-      setResult(result) } else {
-      let result = gramsLeft / (Number(weight) * 0.6)
-      setResult(result)
-      }
-    
-  }
+      let litres = Number(bottles) * 0.33
+      let grams = litres * 8 * 4.5
+      let burning = Number(weight) / 10
+      let gramsLeft = grams - burning * Number(hours)
+
+      if ( sex == 'male') {
+        let result = gramsLeft / (Number(weight) * 0.7)
+        setResult(result) 
+        if (result < 0) {
+          alert('Result cannot be negative')
+          setResult(0);
+        }
+      } 
+      else {
+        let result = gramsLeft / (Number(weight) * 0.6)
+        setResult(result)
+          if (result < 0) {
+            alert('Result cannot be negative')
+            setResult(0);
+          }
+        }
+    }
 
   return (
     <View style={Style.containter}>
